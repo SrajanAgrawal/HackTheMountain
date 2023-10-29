@@ -1,20 +1,52 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faLock } from "@fortawesome/free-solid-svg-icons";
-
+import { faUserGraduate, faUserTie } from "@fortawesome/free-solid-svg-icons";
+import axios from "axios";
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState(null);
+  const [error, setError] = useState('');
+  const [registrationType, setRegistrationType] = useState(null);
+
+  const handleRegistration = (type:any) => {
+    setRegistrationType(type);
+  };
 
   const handleLogin = () => {
+    const formData = {
+      username:username,
+      password:password
+    }
     // Add your login logic here
     // Example: Check if the username and password are correct
-    if (username === "exampleuser" && password === "password123") {
-      // Successful login, you can redirect the user to another page
-      console.log("Login successful");
-    } else {
-      // Failed login attempt, display an error message
+    if (registrationType == 'freelancer'){
+      axios.post('http://localhost:8000/accounts/lancerlogin/',formData)
+      .then(response => {
+        if (response.data['message'] == 'success'){
+          setError('');
+          console.log(response.data)
+        }else{
+          setError(response.data['message'])
+        }
+      })
+      .catch(error => {
+        console.error('Error: ',error);
+      });
+    }else if(registrationType == 'student'){
+      axios.post('http://localhost:8000/accounts/userlogin/',formData)
+      .then(response => {
+        console.log(response)
+        if (response.data['message'] == 'success'){
+          setError('');
+          console.log(response.data)
+        }else{
+          setError(response.data['message'])
+        }
+      })
+      .catch(error => {
+        console.error('Error: ',error);
+      });
     }
   };
 
@@ -22,15 +54,46 @@ function Login() {
     <div className="bg-black flex items-center justify-center h-screen">
       <div className="bg-white p-8 rounded-lg shadow-lg w-96">
         <h1 className="text-2xl font-semibold mb-4 text-center">SIGN IN TO YOUR ACCOUNT</h1>
-        {error && <div className="text-red-500 mb-4">{error}</div>}
+        <div className="mb-2 text-center">
+          <div className="flex items-center justify-center">
+            <div className="m-2">
+              <div
+                className={`p-2 cursor-pointer border rounded-lg flex items-center justify-center ${
+                  registrationType === "freelancer"
+                    ? "bg-blue"
+                    : "bg-gray-500"
+                }`}
+                onClick={() => handleRegistration("freelancer")}
+              >
+                <div>
+                  <FontAwesomeIcon icon={faUserTie}  className="text-lg" />
+                  <span className="p-1">Lancer</span>
+                </div>
+              </div>
+            </div>
+            <div className="m-2">
+              <div
+                className={`p-2 cursor-pointer border rounded-lg flex items-center justify-center ${
+                  registrationType === "student" ? "bg-zinc-400" : "bg-gray-500"
+                }`}
+                onClick={() => handleRegistration("student")}
+              >
+                <div>
+                  <FontAwesomeIcon icon={faUserGraduate} className="text-lg" />
+                  <span className="p-1">Geek</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
         <div className="mb-4">
           <div className="flex items-center border rounded">
             <div className="pl-3">
               <FontAwesomeIcon icon={faUser} />
             </div>
             <input
-              type="text"
-              placeholder="Username"
+              type="email"
+              placeholder="E-mail"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               className="w-full py-2 px-2 rounded-r"
@@ -51,6 +114,7 @@ function Login() {
             />
           </div>
         </div>
+        {error && <div className="text-red-500 mb-4">{error}</div>}
         <button
           style={{
             background: "blue",
@@ -71,7 +135,7 @@ function Login() {
         <div className="mt-4 text-center">
           <p>
           Don&apos;t  have an account?{" "}
-            <a href="#" className="text-blue-500 hover:underline">
+            <a href="/signup" className="text-blue-500 hover:underline">
               Create one here.
             </a>
           </p>

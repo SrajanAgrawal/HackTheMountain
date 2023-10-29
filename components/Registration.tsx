@@ -2,14 +2,16 @@ import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserGraduate, faUserTie } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
+import axios from "axios";
+import Router, { useRouter } from "next/router";
 
 function Registration() {
   const [registrationType, setRegistrationType] = useState(null);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState('');
 
-  // const handleRegistration = (type: any) => {
-  //   setRegistrationType(type);
-  // };
+  const handleRegistrationType = (type: any) => {
+    setRegistrationType(type);
+  };
 
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -17,30 +19,64 @@ function Registration() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [termsAccepted, setTermsAccepted] = useState(false);
-
+  const router = useRouter();
 
   const handleRegistration = () => {
     // Add your registration logic here
     if (!termsAccepted) {
-      // setError("You must accept the terms and conditions.");
+      setError("You must accept the terms and conditions.");
       return;
     }
-
     if (password !== confirmPassword) {
-      // setError("Passwords do not match.");
+      setError("Passwords do not match.");
       return;
     }
-
-    // Registration successful, you can handle it here
-    console.log("Registration successful");
+    const formData = {
+      firstName:firstName,
+      lastName:lastName,
+      email:email,
+      password:password
+    }
+    if (registrationType == 'freelancer'){
+      axios.post('http://localhost:8000/accounts/lancerregister/',formData)
+      .then(response => {
+        router.push({
+          pathname: '/dashboard',
+          query: { user: JSON.stringify(response.data)}
+        });
+        console.log(response.data)
+        if (response.data['message'] == "success"){
+          setError('');
+          console.log('scces');
+          
+        }else{
+          setError(response.data['message'])
+        }
+      })
+      .catch(error => {
+        console.error('Error: ',error);
+      });
+    }else if(registrationType == 'student'){
+      axios.post('http://localhost:8000/accounts/userregister/',formData)
+      .then(response => {
+        console.log(response)
+        if (response.data['message'] == 'success'){
+          setError('');
+          console.log(response.data)
+        }else{
+          setError(response.data['message'])
+        }
+      })
+      .catch(error => {
+        console.error('Error: ',error);
+      });
+    }
   };
 
 
   return (
     <div className="bg-black flex items-center justify-center pt-12">
-      <div className="bg-white py-4 px-10 rounded shadow-lg  w-[34rem]">
-        
-        {error && <div className="text-red-500 mb-4">{error}</div>}
+      <div className=" py-4 px-10 rounded shadow-lg  w-[34rem]">
         <div className="text-center">
           <div className="flex items-center justify-center">
             <div className="m-2 w-2/5">
@@ -49,7 +85,7 @@ function Registration() {
                   ? "bg-zinc-400"
                   : "bg-gray-500"
                   }`}
-                onClick={() => handleRegistration("freelancer")}
+                onClick={() => handleRegistrationType("freelancer")}
               >
                 <div>
                   <FontAwesomeIcon icon={faUserTie} className="text-lg" />
@@ -61,7 +97,7 @@ function Registration() {
               <div
                 className={`p-2 cursor-pointer border rounded-lg flex items-center justify-center ${registrationType === "student" ? "bg-zinc-400" : "bg-gray-500"
                   }`}
-                onClick={() => handleRegistration("student")}
+                onClick={() => handleRegistrationType("student")}
               >
                 <div>
                   <FontAwesomeIcon icon={faUserGraduate} className="text-lg" />
@@ -72,12 +108,11 @@ function Registration() {
           </div>
         </div>
 
-        <div className="bg-black flex items-center justify-center h-screen">
-          <div className="bg-white p-8 rounded shadow-lg w-[44rem]">
+        <div className="bg-black text-black flex items-center justify-center h-screen">
+          <div className="p-8 rounded shadow-lg w-[44rem]">
             <h1 className="text-2xl font-semibold mb-4 text-center">
               SIGN UP TO HIRE TALENT
             </h1>
-            {error && <div className="text-red-500 mb-4">{error}</div>}
             <div className="mb-4 flex">
               <div className="w-1/2 pr-2">
                 <input
@@ -125,7 +160,8 @@ function Registration() {
                 className="w-full py-2 px-3 rounded-lg border border-opacity-50"
               />
             </div>
-            <div className="mb-4">
+            {error && <div className="text-red-500 mb-4">{error}</div>}
+            <div className="mb-4 text-white">
               <label className="block mb-2">
                 <input
                   type="checkbox"
