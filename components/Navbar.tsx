@@ -13,24 +13,24 @@ export default function Navbar() {
             <div className="flex justify-between mt-1 bg-black text-white">
                 <div id="left_nav">
                     {/* include unsplash api for logo */}
-                    <Image
-                        src="/images/logo.png"
-                        width={150}
-                        height={100}
-                        alt="Geeklance"
-                    />
+                    <Link href="/" className="hover:underline">
+
+                        <Image
+                            src="/images/logo.png"
+                            width={150}
+                            height={100}
+                            alt="Geeklance"
+                        />
+                    </Link>
                 </div>
                 <div id="mid_nav" className="flex justify-between w-96 items-center">
-                    <Link href="#" className="hover:underline">
+                    <Link href="#about" className="hover:underline">
                         About Us
                     </Link>
-                    <Link href="#" className="hover:underline">
-                        Buy Project
-                    </Link>
-                    <Link href="#" className="hover:underline">
+                    <Link href="/pricing" className="hover:underline">
                         Pricing
                     </Link>
-                    <Link href="#" className="hover:underline">
+                    <Link href="/contactus" className="hover:underline">
                         Contact Us
                     </Link>
                 </div>
@@ -40,13 +40,13 @@ export default function Navbar() {
 
                         <FontAwesomeIcon icon={faMagnifyingGlass} />
                     </div>
-                    <Link href="#" className="hover:underline">Login</Link>
-                    <Link href="#" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-4 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 hover:underline">Submit Post {"->"}</Link>
+                    <Link href="/login" className="hover:underline">Login</Link>
+                    <Link href="/signup" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-4 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 hover:underline">Submit Post {"->"}</Link>
 
                 </div>
             </div>
 
-           
+
         </>
     )
 }   // End of Navbar()
