@@ -3,7 +3,7 @@ import Image from 'next/image'
 
 const ImageTextColumn = ({ imageUrl, heading, paragraph }) => {
     return (
-        <div className="flex flex-col md:flex-row md:items-center py-8 px-8">
+        <div className="flex flex-col md:flex-row md:items-center py-8 px-8" id="about">
             <div className="md:w-1/3 flex justify-center">
 
                 <Image

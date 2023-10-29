@@ -30,6 +30,9 @@ export default function Navbar() {
                     <Link href="/pricing" className="hover:underline">
                         Pricing
                     </Link>
+                    <Link href="/submit" className="hover:underline">
+                        Sell Project
+                    </Link>
                     <Link href="/contactus" className="hover:underline">
                         Contact Us
                     </Link>
