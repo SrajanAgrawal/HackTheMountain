@@ -20,7 +20,7 @@ const Dashboard = () => {
         <strong>Name:</strong> {userDetails.first_name} {userDetails.last_name}
       </div>
       <div className="mb-4">
-        <strong>Email:</strong> {user.email}
+        <strong>Email:</strong> {userDetails.email}
       </div>
       <div className="mb-4">
         <strong>Skills:</strong> 
