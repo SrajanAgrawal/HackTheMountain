@@ -27,7 +27,7 @@ const SubmitProject = () => {
 
   return (
     <div className="max-w-3xl mx-auto mt-8 p-6 rounded-lg shadow-md bg-white">
-      <h1 className="text-3xl font-semibold mb-6">Submit a Project</h1>
+      <h1 className="text-3xl font-semibold mb-6">Sell your Project</h1>
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
           <label htmlFor="title" className="block text-sm font-medium text-gray-600">

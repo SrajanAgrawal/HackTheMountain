@@ -6,7 +6,7 @@ import Image from 'next/image'
 export default function Footer() {
     return (
         <>
-            <footer className="bg-black text-white py-8 px-12">
+            <footer className="bg-black text-white py-12 px-12">
                 <div className="container mx-auto flex flex-wrap justify-between">
                     <div className="w-full lg:w-1/4">
                         <h2 className="text-xl font-semibold">GeekLance</h2>

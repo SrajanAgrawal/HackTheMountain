@@ -18,6 +18,29 @@
   }
 }
 
+.no_scrollbar {
+  display: flex;
+  white-space: nowrap;
+  overflow: hidden;
+  padding-bottom: 15px;
+  scrollbar-width: thin; /* "thin" or "auto" to show the scrollbar */
+  scrollbar-color: #333 #111; /* thumb color and track color */
+  cursor: pointer;
+}
+
+.no_scrollbar::-webkit-scrollbar {
+  width: 0px; /* width of the scrollbar */
+  height: 0px; /* height of the scrollbar */
+}
+
+.no_scrollbar::-webkit-scrollbar-thumb {
+  background: #333; /* thumb color */
+}
+
+.no_scrollbar::-webkit-scrollbar-track {
+  background: #111; /* track color */
+}
+
 /* body {
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
