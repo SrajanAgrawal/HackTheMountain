@@ -3,12 +3,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faLock } from "@fortawesome/free-solid-svg-icons";
 import { faUserGraduate, faUserTie } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
+import Router, { useRouter } from "next/router";
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState('');
   const [registrationType, setRegistrationType] = useState(null);
-
+  
+  const router = useRouter();
   const handleRegistration = (type:any) => {
     setRegistrationType(type);
   };
@@ -23,6 +25,10 @@ function Login() {
     if (registrationType == 'freelancer'){
       axios.post('http://localhost:8000/accounts/lancerlogin/',formData)
       .then(response => {
+        router.push({
+          pathname: '/dashboard',
+          query: { user: JSON.stringify(response.data)}
+        });
         if (response.data['message'] == 'success'){
           setError('');
           console.log(response.data)
