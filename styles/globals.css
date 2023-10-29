@@ -41,6 +41,10 @@
   background: #111; /* track color */
 }
 
+body{
+  background-color: black;
+  color: white;
+}
 /* body {
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(

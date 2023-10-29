@@ -43,13 +43,13 @@ function UpcomingJobs() {
     const visibleJobs = filteredJobs.slice(currentIndex, currentIndex + cardsPerPage);
 
     return (
-        <div className="bg-black min-h-screen py-8 text-white">
+        <div className="bg-black py-8 text-white">
             <div className="container mx-auto">
                 <h1 className="text-2xl font-semibold mb-4 text-center">
                     Upcoming Jobs Near You
                 </h1>
 
-                <div className="mb-4 flex justify-center">
+                <div className="mb-4 flex justify-around">
                     <input
                         type="text"
                         placeholder="Search for jobs..."
@@ -60,7 +60,7 @@ function UpcomingJobs() {
                 </div>
 
                 <div className="relative">
-                    <div className="flex justify-between items-center">
+                    <div className="flex justify-around items-center">
                         <button
                             className={`slider-button prev ${currentIndex === 0 ? 'opacity-50 cursor-not-allowed' : ''}`}
                             onClick={handlePrev}
