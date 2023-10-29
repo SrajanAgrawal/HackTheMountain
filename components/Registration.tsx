@@ -76,7 +76,7 @@ function Registration() {
 
   return (
     <div className="bg-black flex items-center justify-center pt-12">
-      <div className=" py-4 px-10 rounded shadow-lg  w-[34rem]">
+      <div className=" bg-white py-4 px-10 rounded shadow-lg  w-[34rem]">
         <div className="text-center">
           <div className="flex items-center justify-center">
             <div className="m-2 w-2/5">
@@ -108,8 +108,8 @@ function Registration() {
           </div>
         </div>
 
-        <div className="bg-black text-black flex items-center justify-center h-screen">
-          <div className="p-8 rounded shadow-lg w-[44rem]">
+        <div className="bg-black text-black flex items-center justify-center">
+          <div className="bg-white p-8 rounded shadow-lg w-[44rem]">
             <h1 className="text-2xl font-semibold mb-4 text-center">
               SIGN UP TO HIRE TALENT
             </h1>
@@ -167,7 +167,7 @@ function Registration() {
                   type="checkbox"
                   checked={termsAccepted}
                   onChange={() => setTermsAccepted(!termsAccepted)}
-                  className="mr-2"
+                  className="mr-2 text-black"
                 />
                 I accept the terms and conditions
               </label>
